@@ -48,7 +48,7 @@ func NextRace() (string, error) {
 	if hour > 4 && hour < 9 {
 		hourComment = "Unfortunately it seems you'll have to wake up early if you want to watch the race :("
 	} else {
-		hourComment = "It seems a decent hour for the race, you won't have to wake up early. Yey!"
+		hourComment = "It seems a decent hour for the race. You won't have to wake up early!"
 	}
 
 	// Build the message
@@ -75,11 +75,11 @@ func PrettyCountdount(d time.Duration) string {
 	case d < 0:
 		return "already over"
 	case d.Hours() < 1:
-		return fmt.Sprintf("%.1f minute(s) to go", d.Minutes())
+		return fmt.Sprintf("%.1f minutes to go", d.Minutes())
 	case d.Hours() < 24:
-		return fmt.Sprintf("%.1f hour(s) to go", d.Hours())
+		return fmt.Sprintf("%.1f hours to go", d.Hours())
 	default:
-		return fmt.Sprintf("%.1f day(s) to go", d.Hours()/24)
+		return fmt.Sprintf("%.1f days to go", d.Hours()/24)
 	}
 
 }

@@ -9,5 +9,6 @@ func Help(prefix string) string {
 		`Available commands:
     help - shows this message
 	next - shows information about the next race
+	last - shows information about the last race
 `
 }

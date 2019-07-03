@@ -43,6 +43,11 @@ func CreateMessage(s *dgo.Session, m *dgo.MessageCreate) {
 		if err != nil {
 			message = fmt.Sprintf("Ups, seems like there was a problem executing the command. The error reported is: %v", err)
 		}
+	case "last":
+		message, err = commands.LastRace()
+		if err != nil {
+			message = fmt.Sprintf("Ups, seems like there was a problem executing the command. The error reported is: %v", err)
+		}
 	case "help":
 		message = commands.Help(BOT_PREFIX)
 	}
