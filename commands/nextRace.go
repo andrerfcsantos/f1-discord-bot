@@ -52,7 +52,7 @@ func NextRace() (string, error) {
 	}
 
 	// Build the message
-	message := fmt.Sprintf("The next race is the %v at %v (%v, %v). The race will be on %v (%v). %v",
+	message := fmt.Sprintf("**NEXT RACE INFORMATION**\nThe next race is the %v at %v (%v, %v). The race will be on %v (%v). %v",
 		race.RaceName,
 		race.Circuit.CircuitName,
 		race.Circuit.Location.Locality,

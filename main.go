@@ -49,6 +49,7 @@ func main() {
 	}
 	defer session.Close()
 
+	session.UpdateStatus(0, "!f1 help")
 	session.AddHandler(handlers.CreateMessage)
 
 	// Wait for a CTRL-C

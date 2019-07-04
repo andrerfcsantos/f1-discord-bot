@@ -40,16 +40,18 @@ func CreateMessage(s *dgo.Session, m *dgo.MessageCreate) {
 	switch c.Command {
 	case "next":
 		message, err = commands.NextRace()
-		if err != nil {
-			message = fmt.Sprintf("Ups, seems like there was a problem executing the command. The error reported is: %v", err)
-		}
 	case "last":
 		message, err = commands.LastRace()
-		if err != nil {
-			message = fmt.Sprintf("Ups, seems like there was a problem executing the command. The error reported is: %v", err)
-		}
+	case "results":
+		message, err = commands.Results(c.Arguments...)
 	case "help":
 		message = commands.Help(BOT_PREFIX)
+	default:
+		message = fmt.Sprintf("Command %s not recognized. Type `!f1 help` for a full list of commands available")
+	}
+
+	if err != nil {
+		message = fmt.Sprintf("Ups, seems like there was a problem executing the command. The error reported is: %v", err)
 	}
 
 	// Send the message

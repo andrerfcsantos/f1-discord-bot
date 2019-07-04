@@ -7,13 +7,14 @@ type MRReply struct {
 
 // MRData is a top level reply object containing some metadata about the reply
 type MRData struct {
-	Xmlns     string    `json:"xmlns"`
-	Series    string    `json:"series"`
-	URL       string    `json:"url"`
-	Limit     string    `json:"limit"`
-	Offset    string    `json:"offset"`
-	Total     string    `json:"total"`
-	RaceTable RaceTable `json:"RaceTable"`
+	Xmlns        string       `json:"xmlns"`
+	Series       string       `json:"series"`
+	URL          string       `json:"url"`
+	Limit        string       `json:"limit"`
+	Offset       string       `json:"offset"`
+	Total        string       `json:"total"`
+	RaceTable    RaceTable    `json:"RaceTable"`
+	CircuitTable CircuitTable `json:"CircuitTable"`
 }
 
 // Location represents the location of a grand prix
@@ -98,9 +99,13 @@ type FastestLap struct {
 	AverageSpeed AverageSpeed `json:"AverageSpeed"`
 }
 
-// Time
+// Time represents a time of a fastest lap
 type Time struct {
 	Time string `json:"time"`
+}
+
+type CircuitTable struct {
+	Circuits []Circuit `json:"Circuits"`
 }
 
 type AverageSpeed struct {
