@@ -29,37 +29,36 @@ func CreateMessage(s *dgo.Session, m *dgo.MessageCreate) {
 
 	// Skip the prefix
 	m.Content = m.Content[len(BOT_PREFIX)+1:]
-	log.Printf("Processing command: %v", m.Content)
 
 	// Process command and figure out the reply to send
 	c := ParseCommandArguments(m.Content)
 
 	var message string
-	var err error
+	var cmdErr error
 
 	switch c.Command {
 	case "next":
-		message, err = commands.NextRace()
+		message, cmdErr = commands.NextRace()
 	case "last":
-		message, err = commands.LastRace()
+		message, cmdErr = commands.LastRace()
 	case "results":
-		message, err = commands.Results(c.Arguments...)
+		message, cmdErr = commands.Results(c.Arguments...)
 	case "help":
 		message = commands.Help(BOT_PREFIX)
 	default:
-		message = fmt.Sprintf("Command %s not recognized. Type `!f1 help` for a full list of commands available")
+		cmdErr = fmt.Errorf("command %s not recognized. Type `!f1 help` for a full list of commands available", c.Command)
 	}
 
-	if err != nil {
-		message = fmt.Sprintf("Ups, seems like there was a problem executing the command. The error reported is: %v", err)
+	if cmdErr != nil {
+		message = fmt.Sprintf("Ups, seems like there was a problem executing the command: %v", cmdErr)
 	}
 
 	// Send the message
-	_, err = s.ChannelMessageSend(m.ChannelID, message)
-
-	if err != nil {
-		log.Printf("error sending message to discord: %v", err)
-		return
+	_, sendErr := s.ChannelMessageSend(m.ChannelID, message)
+	if sendErr != nil {
+		log.Printf("error sending message to discord: %v", sendErr)
 	}
+
+	log.Printf("Author: %v(%v) | Command: %v | CmdErr: %v | SendErr: %v ", m.Author.ID, m.Author.Username, m.Content, cmdErr, sendErr)
 
 }

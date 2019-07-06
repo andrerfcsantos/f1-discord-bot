@@ -45,10 +45,16 @@ A binary distribution solution will be considered in the future in order to remo
 The users of the server can send commands to the bot using the following:
 
 ```
-usage: !f1 [command] [command_args...]
-Available commands:
-    help - shows this message
-    next - shows information about the next race
+usage: %s [command] [command_args...]\n", prefix) +
+		`Available commands:
+    **help** - shows this message
+	**next** - shows information about the next race
+	**last** - shows information about the last race
+	**results** - shows information about results
+    
+		Subcommands:
+
+		**results circuit <circuit>** - shows historical information about the winners at a given circuit for the last years
 ```
 
 The bot will reply in the same channel the command was executed.

@@ -53,7 +53,7 @@ func main() {
 	session.AddHandler(handlers.CreateMessage)
 
 	// Wait for a CTRL-C
-	log.Printf(`Now running. Press CTRL-C to exit.`)
+	log.Printf("It's lights out and away we go! Bot now running. (CTRL-C to exit)")
 	sc := make(chan os.Signal, 1)
 	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
 	<-sc
