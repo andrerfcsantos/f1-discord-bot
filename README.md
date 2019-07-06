@@ -1,18 +1,40 @@
 # Formula 1 Discord Bot
 
-[![GoDoc](https://godoc.org/github.com/andrerfcsantos/f1-discord-bot?status.svg)](http://godoc.org/github.com/andrerfcsantos/f1-discord-bot)
 [![Go Report Card](https://goreportcard.com/badge/github.com/andrerfcsantos/f1-discord-bot)](https://goreportcard.com/report/github.com/andrerfcsantos/f1-discord-bot)
 
 Discord bot that posts information about Formula 1 on discord by user request.
 
-# Prerequisites
+## Invite the bot to your server
 
- * [Go](https://golang.org/dl/) (1.11+)
- * A Bot User with permissions to read write messages in the server you want the bot to run.
+The easiest way to start using the bot is to just [invite the bot](https://discordapp.com/api/oauth2/authorize?client_id=595651486923358238&permissions=67632192&scope=bot) to your server and start using the commands. See below if you want to run the bot on your own server.
+
+## Usage
+
+The users of the server can send commands to the bot using the following:
+
+```
+usage: !f1 [command] [command_args...]
+Available commands:
+    - help - shows this message
+    - next - shows information about the next race
+    - last - shows information about the last race
+    - results - shows information about results
+        - results circuit <circuit> - shows historical information about the winners at a given circuit for the last years
+        - results driver <driver> - shows last results for a driver
+```
+
+The bot will reply in the same channel the command was executed.
+
+## Running the bot on your own server
+
+### Prerequisites
+
+* [Go](https://golang.org/dl/) (1.11+ required, since this project uses modules)
+* [An Application and Bot User](https://discordapp.com/developers/applications) with permissions to read write messages in the server you want the bot to run.
 
 A binary distribution solution will be considered in the future in order to remove the Go requirement. A docker version is also planned.
 
-# Instalation
+### Instalation
 
 * Clone the repository
 * `$ cd <repo_root_folder>`
@@ -22,43 +44,24 @@ A binary distribution solution will be considered in the future in order to remo
 
 * Set the `DISCORD_BOT_TOKEN` environemnt variable with your discord bot token. Alternatively, you can also pass this token to the program using the flag `-bot-token`  (see below).
 
-* Run the program
+### Run the program
 
-    Assuming you already set up `DISCORD_BOT_TOKEN`, run:
+Assuming you already set up `DISCORD_BOT_TOKEN`, run:
 
-    * `$ ./f1-discord-bot` (linux/mac)
-    * `$ f1-discord-bot.exe` (windows)
+* `$ ./f1-discord-bot` (linux/mac)
+* `$ f1-discord-bot.exe` (windows)
 
-    That's it! The bot should now be running.
-    
-    If you don't want to use a global environment variable with your token, or you plan to run several instances, you can also define the bot token for each run:
+That's it! The bot should now be running.
 
-    * `$ DISCORD_BOT_TOKEN=<YOUR_BOT_TOKEN> ./f1-discord-bot` (linux/mac)
+If you don't want to use a global environment variable with your token, or you plan to run several instances, you can also define the bot token for each run:
 
-        or passing it via flag:
+* `$ DISCORD_BOT_TOKEN=<YOUR_BOT_TOKEN> ./f1-discord-bot` (linux/mac)
 
-    * `$ ./f1-discord-bot -bot-token <YOUR_BOT_TOKEN>` (linux/mac)
-    * `$ f1-discord-bot.exe -bot-token <YOUR_BOT_TOKEN>` (windows)
+    or passing it via flag:
 
-# Usage
+* `$ ./f1-discord-bot -bot-token <YOUR_BOT_TOKEN>` (linux/mac)
+* `$ f1-discord-bot.exe -bot-token <YOUR_BOT_TOKEN>` (windows)
 
-The users of the server can send commands to the bot using the following:
-
-```
-usage: %s [command] [command_args...]\n", prefix) +
-		`Available commands:
-    **help** - shows this message
-	**next** - shows information about the next race
-	**last** - shows information about the last race
-	**results** - shows information about results
-    
-		Subcommands:
-
-		**results circuit <circuit>** - shows historical information about the winners at a given circuit for the last years
-```
-
-The bot will reply in the same channel the command was executed.
-
-# Acknowledgements
+## Acknowledgements
 
 The information provided by this bot comes from the [Ergast API](https://ergast.com/mrd/).
