@@ -5,9 +5,9 @@
 
 Discord bot that posts information about Formula 1 on discord by user request.
 
-## Invite the bot to your server
+## Invite the bot to your Discord Server
 
-The easiest way to start using the bot is to just [invite the bot](https://discordapp.com/api/oauth2/authorize?client_id=595651486923358238&permissions=67632192&scope=bot) to your server and start using the commands. See below if you want to run the bot on your own server.
+The easiest way to start using the bot is to just [invite the bot](https://discordapp.com/api/oauth2/authorize?client_id=595651486923358238&permissions=67632192&scope=bot) to your Discord server and start using the commands. See below if you want to run the bot on your own server/computer.
 
 ## Usage
 
