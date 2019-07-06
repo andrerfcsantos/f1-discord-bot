@@ -1,6 +1,7 @@
 # Formula 1 Discord Bot
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/andrerfcsantos/f1-discord-bot)](https://goreportcard.com/report/github.com/andrerfcsantos/f1-discord-bot)
+[![GoDoc](https://godoc.org/github.com/andrerfcsantos/f1-discord-bot?status.svg)](https://godoc.org/github.com/andrerfcsantos/f1-discord-bot)
 
 Discord bot that posts information about Formula 1 on discord by user request.
 
@@ -25,7 +26,7 @@ Available commands:
 
 The bot will reply in the same channel the command was executed.
 
-## Running the bot on your own server
+## Running the bot on your own server/computer
 
 ### Prerequisites
 
