@@ -146,7 +146,6 @@ func RaceHourComment(raceTime time.Time) string {
 	hour := raceTime.Hour()
 	if hour > 4 && hour < 9 {
 		return "Unfortunately it seems you'll have to wake up early if you want to watch the race :("
-	} else {
-		return "It seems a decent hour for the race. You won't have to wake up early!"
 	}
+	return "It seems a decent hour for the race. You won't have to wake up early!"
 }
