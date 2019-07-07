@@ -5,9 +5,11 @@
 
 Discord bot that posts information about Formula 1 on discord by user request.
 
-## Invite the bot to your Discord Server
+## Invite the bot to your Discord server
 
-The easiest way to start using the bot is to just [invite the bot](https://discordapp.com/api/oauth2/authorize?client_id=595651486923358238&permissions=67632192&scope=bot) to your Discord server and start using the commands. See below if you want to run the bot on your own server/computer.
+The easiest way to use bot is to just [invite the bot](https://discordapp.com/api/oauth2/authorize?client_id=595651486923358238&permissions=67632192&scope=bot) to your Discord server and start using the commands.
+
+See below if you want to run the bot on your own machine/server.
 
 ## Usage
 
@@ -19,6 +21,7 @@ Available commands:
     - help - shows this message
     - next - shows information about the next race
     - last - shows information about the last race
+    - current - shows races for the current season
     - results - shows information about results
         - results circuit <circuit> - shows historical information about the winners at a given circuit for the last years
         - results driver <driver> - shows last results for a driver
@@ -26,7 +29,11 @@ Available commands:
 
 The bot will reply in the same channel the command was executed.
 
-## Running the bot on your own server/computer
+## Running the bot on your own server/machine
+
+The easiest way to run the bot is to invite the bot to your Discord server like previously mentioned. By doing that, you are using an instance of the bot running in the cloud.
+
+This section is intended for advanced users who want to run the bot on their own machine or on their own server.
 
 ### Prerequisites
 

@@ -58,6 +58,19 @@ func RequestDriverResults(driverID string) (RaceTable, error) {
 	return reply.MRData.RaceTable, nil
 }
 
+// CurrentSeason requests information about races of the current season
+func CurrentSeason() (RaceTable, error) {
+	endpoint := fmt.Sprintf("/current.json?limit=1000")
+	reply, err := APIGet(endpoint)
+	if err != nil {
+		return RaceTable{}, err
+	}
+	if len(reply.MRData.RaceTable.Races) == 0 {
+		return RaceTable{}, fmt.Errorf("request ok, but no races returned")
+	}
+	return reply.MRData.RaceTable, nil
+}
+
 // Circuits requests a list of circuits
 func Circuits() (CircuitTable, error) {
 	reply, err := APIGet("/circuits.json?limit=1000")

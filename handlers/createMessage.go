@@ -43,6 +43,8 @@ func CreateMessage(s *dgo.Session, m *dgo.MessageCreate) {
 		message, cmdErr = commands.LastRace()
 	case "results":
 		message, cmdErr = commands.Results(c.Arguments...)
+	case "current":
+		message, cmdErr = commands.CurrentSeason()
 	case "help":
 		message = commands.Help(BOT_PREFIX)
 	default:
@@ -59,6 +61,6 @@ func CreateMessage(s *dgo.Session, m *dgo.MessageCreate) {
 		log.Printf("error sending message to discord: %v", sendErr)
 	}
 
-	log.Printf("Author: %v(%v) | Command: %v | CmdErr: %v | SendErr: %v ", m.Author.ID, m.Author.Username, m.Content, cmdErr, sendErr)
+	log.Printf("Guild: %v | Author: %v(%v) | Command: %v | CmdErr: %v | SendErr: %v", m.GuildID, m.Author.ID, m.Author.Username, m.Content, cmdErr, sendErr)
 
 }
