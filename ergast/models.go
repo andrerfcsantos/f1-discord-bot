@@ -1,5 +1,20 @@
 package ergast
 
+import (
+	"fmt"
+	"time"
+)
+
+var defaultLocation *time.Location
+
+func init() {
+	var err error
+	defaultLocation, err = time.LoadLocation("Europe/Lisbon")
+	if err != nil {
+		panic(fmt.Errorf("loading default location: %w", err))
+	}
+}
+
 // MRReply is the top level object present replies from the ergast API
 type MRReply struct {
 	MRData `json:"MRData"`
@@ -39,7 +54,6 @@ type SeasonTable struct {
 
 // HasSeason checks if a season with a given id is present on the season table
 func (st *SeasonTable) HasSeason(year string) bool {
-
 	for _, season := range st.Seasons {
 		if season.Year == year {
 			return true
@@ -56,7 +70,6 @@ type CircuitTable struct {
 
 // HasCircuit checks if a circuit with a given id is present on the circuit table
 func (ct *CircuitTable) HasCircuit(circuitID string) bool {
-
 	for _, circuit := range ct.Circuits {
 		if circuit.CircuitID == circuitID {
 			return true
@@ -73,7 +86,6 @@ type DriverTable struct {
 
 // HasDriver checks if a circuit with a given id is present on the circuit table
 func (dt *DriverTable) HasDriver(driverID string) bool {
-
 	for _, driver := range dt.Drivers {
 		if driver.DriverID == driverID {
 			return true
@@ -90,7 +102,6 @@ type ConstructorTable struct {
 
 // HasConstructor checks if a circuit with a given id is present on the circuit table
 func (dt *ConstructorTable) HasConstructor(constructorID string) bool {
-
 	for _, constructor := range dt.Constructors {
 		if constructor.ConstructorID == constructorID {
 			return true
@@ -130,9 +141,13 @@ type Race struct {
 	URL      string       `json:"url"`
 	RaceName string       `json:"raceName"`
 	Circuit  Circuit      `json:"Circuit"`
-	Date     string       `json:"date"`
-	Time     string       `json:"time"`
 	Results  []RaceResult `json:"Results"`
+	DateTime
+	FirstPractice  *DateTime `json:"FirstPractice"`
+	SecondPractice *DateTime `json:"SecondPractice"`
+	ThirdPractice  *DateTime `json:"ThirdPractice"`
+	Qualifying     *DateTime `json:"Qualifying"`
+	Sprint         *DateTime `json:"Sprint"`
 }
 
 // RaceResult represents a race result
@@ -148,6 +163,38 @@ type RaceResult struct {
 	Status       string      `json:"status"`
 	Time         MillisTime  `json:"Time,omitempty"`
 	FastestLap   FastestLap  `json:"FastestLap"`
+}
+
+type DateTime struct {
+	Date string `json:"date"`
+	Time string `json:"time"`
+}
+
+func (dt *DateTime) GoTime() (time.Time, error) {
+	t, err := time.Parse(time.RFC3339, dt.Date+"T"+dt.Time)
+	if err != nil {
+		return time.Time{}, fmt.Errorf("parsing time %q as RFC3339: %w", dt.Date+"T"+dt.Time, err)
+	}
+	return t, nil
+}
+
+func (dt *DateTime) TimeInDefaultLocation() time.Time {
+	t, _ := dt.GoTime()
+	return t.In(defaultLocation)
+}
+
+func (dt *DateTime) TimeInLocation(location string) (time.Time, error) {
+	loc, err := time.LoadLocation(location)
+	if err != nil {
+		return time.Time{}, fmt.Errorf("loading location %q: %w", location, err)
+	}
+
+	t, err := dt.GoTime()
+	if err != nil {
+		return time.Time{}, err
+	}
+
+	return t.In(loc), nil
 }
 
 // MillisTime represents a time in miliseconds

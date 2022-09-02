@@ -1,10 +1,11 @@
 package handlers
 
 import (
-	"f1-discord-bot/commands"
 	"fmt"
 	"log"
 	"strings"
+
+	"f1-discord-bot/commands"
 
 	dgo "github.com/bwmarrin/discordgo"
 )
@@ -14,7 +15,6 @@ const BOT_PREFIX string = "!f1"
 
 // CreateMessage handles a message coming from discord
 func CreateMessage(s *dgo.Session, m *dgo.MessageCreate) {
-
 	m.Content = strings.TrimSpace(m.Content)
 	// Check if the message is intended for this bot
 	if !strings.HasPrefix(m.Content, BOT_PREFIX) {
@@ -34,11 +34,12 @@ func CreateMessage(s *dgo.Session, m *dgo.MessageCreate) {
 	c := ParseCommandArguments(m.Content)
 
 	var message string
+	var messageSend *dgo.MessageSend
 	var cmdErr error
 
 	switch c.Command {
 	case "next":
-		message, cmdErr = commands.NextRace()
+		messageSend, cmdErr = commands.NextRace()
 	case "last":
 		message, cmdErr = commands.LastRace()
 	case "results":
@@ -55,12 +56,17 @@ func CreateMessage(s *dgo.Session, m *dgo.MessageCreate) {
 		message = fmt.Sprintf("Ups, seems like there was a problem executing the command: %v", cmdErr)
 	}
 
+	if message != "" {
+		messageSend = &dgo.MessageSend{
+			Content: message,
+		}
+	}
+
 	// Send the message
-	_, sendErr := s.ChannelMessageSend(m.ChannelID, message)
+	_, sendErr := s.ChannelMessageSendComplex(m.ChannelID, messageSend)
 	if sendErr != nil {
 		log.Printf("error sending message to discord: %v", sendErr)
 	}
 
 	log.Printf("Guild: %v | Author: %v(%v) | Command: %v | CmdErr: %v | SendErr: %v", m.GuildID, m.Author.ID, m.Author.Username, m.Content, cmdErr, sendErr)
-
 }

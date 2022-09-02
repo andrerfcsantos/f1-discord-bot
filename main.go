@@ -1,12 +1,13 @@
 package main
 
 import (
-	"f1-discord-bot/handlers"
 	"flag"
 	"log"
 	"os"
 	"os/signal"
 	"syscall"
+
+	"f1-discord-bot/handlers"
 
 	dgo "github.com/bwmarrin/discordgo"
 )
@@ -19,7 +20,6 @@ var session *dgo.Session
 // Read in all configuration options from both environment variables and
 // command line arguments.
 func init() {
-
 	// Discord Authentication Token
 	BOT_TOKEN = os.Getenv("DISCORD_BOT_TOKEN")
 	if BOT_TOKEN == "" {
@@ -49,13 +49,12 @@ func main() {
 	}
 	defer session.Close()
 
-	session.UpdateStatus(0, "!f1 help")
+	session.UpdateGameStatus(0, "!f1 help")
 	session.AddHandler(handlers.CreateMessage)
 
 	// Wait for a CTRL-C
 	log.Printf("It's lights out and away we go! Bot now running. (CTRL-C to exit)")
 	sc := make(chan os.Signal, 1)
-	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
+	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt)
 	<-sc
-
 }

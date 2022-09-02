@@ -2,7 +2,9 @@ package commands
 
 import (
 	"fmt"
+	"math"
 	"sort"
+	"strconv"
 	"strings"
 	tbw "text/tabwriter"
 	"time"
@@ -46,7 +48,6 @@ func (lds LevenshteinDistances) SortByDistance() {
 // If the event it's still to come, it will also contain information about the time left,
 // expressed in minutes, hours, or days depending on the value of the duration.
 func PrettyCountdount(d time.Duration) string {
-
 	switch {
 	case d < 0:
 		return "already over"
@@ -62,7 +63,6 @@ func PrettyCountdount(d time.Duration) string {
 // ParseRFC3339InLocation parses a time string in RFC3339 as a time, and returns that time in
 // the iana location provided
 func ParseRFC3339InLocation(timeValue string, ianaLocation string) (time.Time, error) {
-
 	rfc3339Time, err := time.Parse(time.RFC3339, timeValue)
 	if err != nil {
 		return rfc3339Time, fmt.Errorf("parsing time '%s' in RFC3339 format: %v", timeValue, err)
@@ -74,7 +74,6 @@ func ParseRFC3339InLocation(timeValue string, ianaLocation string) (time.Time, e
 	}
 
 	return rfc3339Time.In(location), nil
-
 }
 
 // HeaderMessage represents a message to discord with an header and a description
@@ -97,7 +96,6 @@ func (hm *HeaderMessage) String() string {
 	}
 
 	return message.String()
-
 }
 
 // TabularMessage represents a message with an header, description and some tabular data
@@ -148,4 +146,33 @@ func RaceHourComment(raceTime time.Time) string {
 		return "Unfortunately it seems you'll have to wake up early if you want to watch the race :("
 	}
 	return "It seems a decent hour for the race. You won't have to wake up early!"
+}
+
+func ParseDuration(d time.Duration) string {
+	res := ""
+
+	days := int(math.Trunc(d.Hours())) / 24
+
+	if days != 0 {
+		res += strconv.Itoa(days) + "d"
+		d = d - time.Duration(24*days)*time.Hour
+	}
+
+	hours := int(math.Trunc(d.Hours()))
+	if res != "" || hours != 0 {
+		res += strconv.Itoa(hours) + "h"
+		d = d - time.Duration(hours)*time.Hour
+	}
+
+	minutes := int(math.Trunc(d.Minutes()))
+	if res != "" || minutes != 0 {
+		res += strconv.Itoa(hours) + "m"
+		d = d - time.Duration(minutes)*time.Minute
+	}
+
+	seconds := int(math.Trunc(d.Seconds()))
+	if hours < 1 && (res != "" || minutes != 0) {
+		res += strconv.Itoa(seconds) + "s"
+	}
+	return res
 }

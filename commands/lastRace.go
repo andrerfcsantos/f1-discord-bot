@@ -1,15 +1,15 @@
 package commands
 
 import (
-	"f1-discord-bot/ergast"
 	"fmt"
+
+	"f1-discord-bot/ergast"
 )
 
 // LastRace performs the actions for the "last" command sent to the bot,
 // which informs the user about the results of the next grand prix.
 // The result is a string ready to be sent to discord.
 func LastRace() (string, error) {
-
 	// Get next race from the API
 	race, err := ergast.RequestLastRace()
 	if err != nil {

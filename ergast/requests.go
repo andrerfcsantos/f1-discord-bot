@@ -60,8 +60,7 @@ func RequestDriverResults(driverID string) (RaceTable, error) {
 
 // CurrentSeason requests information about races of the current season
 func CurrentSeason() (RaceTable, error) {
-	endpoint := fmt.Sprintf("/current.json?limit=1000")
-	reply, err := APIGet(endpoint)
+	reply, err := APIGet("/current.json?limit=1000")
 	if err != nil {
 		return RaceTable{}, err
 	}
@@ -117,7 +116,6 @@ func Seasons() (SeasonTable, error) {
 		return SeasonTable{}, fmt.Errorf("empty list of seasons from ergast: %v", err)
 	}
 	return reply.MRData.SeasonTable, nil
-
 }
 
 // APIGet makes a GET request to the specified API endpoint.

@@ -1,13 +1,13 @@
 package commands
 
 import (
-	"f1-discord-bot/ergast"
 	"fmt"
+
+	"f1-discord-bot/ergast"
 )
 
 // Results performs the actions for the "results" command sent to the bot
 func Results(args ...string) (string, error) {
-
 	if len(args) < 1 {
 		return "", fmt.Errorf("command 'results' needs more arguments")
 	}
@@ -103,7 +103,6 @@ func CircuitResults(circuitID string, n int) (string, error) {
 
 // DriverResults performs the actions for the "results driver <driverID>" command sent to the bot
 func DriverResults(driverID string, n int) (string, error) {
-
 	// Get circuits
 	driverTable, err := ergast.Drivers()
 	if err != nil {

@@ -11,7 +11,6 @@ type CommandArguments struct {
 // ParseCommandArguments takes a discord command and splits into its action and arguments.
 // The command is assumed to not include any bot prefix.
 func ParseCommandArguments(command string) CommandArguments {
-
 	var cleanArgs []string
 
 	parts := strings.Split(strings.TrimSpace(command), " ")

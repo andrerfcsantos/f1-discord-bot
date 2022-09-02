@@ -1,13 +1,13 @@
 package commands
 
 import (
-	"f1-discord-bot/ergast"
 	"fmt"
+
+	"f1-discord-bot/ergast"
 )
 
 // CurrentSeason builds the message for the "current" command
 func CurrentSeason() (string, error) {
-
 	// Get next race from the API
 	rt, err := ergast.CurrentSeason()
 	if err != nil {
@@ -40,5 +40,4 @@ func CurrentSeason() (string, error) {
 	}
 
 	return m.String(), nil
-
 }
