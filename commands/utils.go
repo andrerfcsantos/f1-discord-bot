@@ -166,7 +166,7 @@ func ParseDuration(d time.Duration) string {
 
 	minutes := int(math.Trunc(d.Minutes()))
 	if res != "" || minutes != 0 {
-		res += strconv.Itoa(hours) + "m"
+		res += strconv.Itoa(minutes) + "m"
 		d = d - time.Duration(minutes)*time.Minute
 	}
 
